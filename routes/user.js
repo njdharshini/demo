@@ -1,4 +1,6 @@
 // routes/auth.js
+
+//new
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const Customer = require('../models/Customer');
@@ -8,6 +10,7 @@ const authorization = require('../functions/auth');
 require('dotenv').config();
 
 const router = express.Router();
+    
 
 // Route: register new user
 router.post('/register', async (req, res) => {
@@ -116,22 +119,6 @@ router.post('/add', authorization, async (req, res) => {
     }
 });
 
-//Route: Update user details
-router.post('/Update',authorization, async (req, res) => {
-  const {  contact_number } = req.body;
-console.log(req.body);
-//console.log(req.name);
-
-  try {
-    // Find the user by email as send as a token
-    const UpdateUser = await Customer.findOneAndUpdate({ email:req.email },{$set:{contact_number:contact_number}});
-  console.log(UpdateUser);
-  
-    res.status(200).json({ message: 'Updated', UpdateUser });
-  } catch (error) {
-    res.status(500).json({ message: 'Error during login' });
-  }
-});
 
 
 module.exports = router;
